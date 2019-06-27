@@ -102,4 +102,17 @@ public class QuestionService {
         return  questionDTO;
 
     }
+
+    public void creatorUpdate(Question question) {
+        if(question.getId()==null){
+            //创建
+            question.setGmtCreate(System.currentTimeMillis());
+            question.setGmtModified(question.getGmtModified());
+            questionMapper.create(question);
+        }else{
+            //更新
+            question.setGmtModified(question.getGmtModified());
+            questionMapper.update(question);
+        }
+    }
 }

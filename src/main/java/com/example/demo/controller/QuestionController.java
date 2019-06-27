@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.QuestionDTO;
-import com.example.demo.mapper.QuestionMapper;
 import com.example.demo.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
