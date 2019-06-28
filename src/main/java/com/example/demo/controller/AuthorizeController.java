@@ -17,7 +17,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.UUID;
 
 @Controller
@@ -26,8 +25,6 @@ public class AuthorizeController {
     @Resource
     private GithubProvider githubProvider;
 
-    @Resource
-    private UserMapper userMapper;
     @Value("${github.client.id}")
     private String clientId;
     @Value("${github.client.secret}")
@@ -35,7 +32,7 @@ public class AuthorizeController {
     @Value("${github.redirect.uri}")
     private String redirectUri;
 
-    @Resource
+    @Autowired
     private UserService userService;
 
 
