@@ -2,6 +2,8 @@ package com.example.demo.service;
 
 import com.example.demo.dto.PaginationDTO;
 import com.example.demo.dto.QuestionDTO;
+import com.example.demo.exception.CustomizeErrorCode;
+import com.example.demo.exception.CustomizeException;
 import com.example.demo.mapper.QuestionMapper;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.model.Question;
@@ -28,7 +30,7 @@ public class QuestionService {
 
         Integer totalPage;
 
-        Integer totalCount = (int)questionMapper.countByExample(new QuestionExample());
+        Integer totalCount = (int) questionMapper.countByExample(new QuestionExample());
 
         if (totalCount % size == 0) {
             totalPage = totalCount / size;
@@ -46,7 +48,7 @@ public class QuestionService {
         paginationDTO.setPagination(totalPage, page);
 
         Integer offset = size * (page - 1);
-        List<Question>  questions=questionMapper.selectByExampleWithBLOBsWithRowbounds(new QuestionExample(),new RowBounds(offset,size));
+        List<Question> questions = questionMapper.selectByExampleWithBLOBsWithRowbounds(new QuestionExample(), new RowBounds(offset, size));
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         for (Question question : questions) {
             User user = userMapper.selectByPrimaryKey(question.getCreator());
@@ -66,7 +68,7 @@ public class QuestionService {
 
         QuestionExample questionExample = new QuestionExample();
         questionExample.createCriteria().andCreatorEqualTo(userId);
-        Integer totalCount = (int)questionMapper.countByExample(questionExample);
+        Integer totalCount = (int) questionMapper.countByExample(questionExample);
 
         if (totalCount % size == 0) {
             totalPage = totalCount / size;
@@ -86,7 +88,7 @@ public class QuestionService {
         Integer offset = size * (page - 1);
         QuestionExample questionExample1 = new QuestionExample();
         questionExample1.createCriteria().andCreatorEqualTo(userId);
-        List<Question>  questions=questionMapper.selectByExampleWithBLOBsWithRowbounds(questionExample1,new RowBounds(offset,size));
+        List<Question> questions = questionMapper.selectByExampleWithBLOBsWithRowbounds(questionExample1, new RowBounds(offset, size));
 
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         for (Question question : questions) {
@@ -101,22 +103,25 @@ public class QuestionService {
     }
 
     public QuestionDTO getById(Integer id) {
-        Question question=questionMapper.selectByPrimaryKey(id);
+        Question question = questionMapper.selectByPrimaryKey(id);
+        if (question == null) {
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        }
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question, questionDTO);
         User user = userMapper.selectByPrimaryKey(question.getCreator());
         questionDTO.setUser(user);
-        return  questionDTO;
+        return questionDTO;
 
     }
 
     public void creatorUpdate(Question question) {
-        if(question.getId()==null){
+        if (question.getId() == null) {
             //创建
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtModified());
             questionMapper.insert(question);
-        }else{
+        } else {
             //更新
             Question updateQuestion = new Question();
             updateQuestion.setGmtCreate(question.getGmtCreate());
@@ -125,7 +130,10 @@ public class QuestionService {
             updateQuestion.setTag(question.getTag());
             QuestionExample example = new QuestionExample();
             example.createCriteria().andCreatorEqualTo(question.getId());
-            questionMapper.updateByExampleSelective(updateQuestion,example);
+            int updated = questionMapper.updateByExampleSelective(updateQuestion, example);
+            if (updated != 1) {
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
         }
     }
 }
