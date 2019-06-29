@@ -8,6 +8,7 @@
 
     <context id="DB2Tables" targetRuntime="MyBatis3">
 
+        <!--分页插件-->
         <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
 
         <!--自动生成时不加注释-->
@@ -44,6 +45,7 @@
 
         <table  tableName="username" domainObjectName="User" />
         <table  tableName="question" domainObjectName="Question" />
+        <table  tableName="comment" domainObjectName="Comment" />
 
     </context>
 </generatorConfiguration>
