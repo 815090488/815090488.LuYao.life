@@ -1,12 +1,15 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.CommentDTO;
 import com.example.demo.dto.PaginationDTO;
 import com.example.demo.dto.QuestionDTO;
+import com.example.demo.enums.CommentTypeEnum;
 import com.example.demo.exception.CustomizeErrorCode;
 import com.example.demo.exception.CustomizeException;
 import com.example.demo.mapper.QuestionExtMapper;
 import com.example.demo.mapper.QuestionMapper;
 import com.example.demo.mapper.UserMapper;
+import com.example.demo.model.CommentExample;
 import com.example.demo.model.Question;
 import com.example.demo.model.QuestionExample;
 import com.example.demo.model.User;
@@ -150,4 +153,5 @@ public class QuestionService {
         question.setViewCount(1);
         questionExtMapper.incView(question);
     }
+
 }
