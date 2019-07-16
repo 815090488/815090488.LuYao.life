@@ -2,11 +2,10 @@ package com.example.demo.controller;
 
 import com.example.demo.cache.TagCache;
 import com.example.demo.dto.QuestionDTO;
-import com.example.demo.mapper.QuestionMapper;
-import com.example.demo.mapper.UserMapper;
 import com.example.demo.model.Question;
 import com.example.demo.model.User;
 import com.example.demo.service.QuestionService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
@@ -26,16 +23,17 @@ public class PublishController {
     QuestionService questionService;
 
     @GetMapping("/publish/{id}")
-    public String edit(@PathVariable(name = "id")Long id,Model model){
+    public String edit(@PathVariable(name = "id") Long id, Model model) {
         QuestionDTO question = questionService.getById(id);
         model.addAttribute("title", question.getTitle());
         model.addAttribute("description", question.getDescription());
         model.addAttribute("tag", question.getTag());
-        model.addAttribute("id",question.getId());
+        model.addAttribute("id", question.getId());
 
         model.addAttribute("tags", TagCache.get());
         return "publish";
     }
+
     @GetMapping("/publish")
     public String publish(Model model) {
         model.addAttribute("tags", TagCache.get());
@@ -62,10 +60,16 @@ public class PublishController {
             model.addAttribute("error", "问题补充不能为空");
             return "publish";
         }
-        if (tag == null || tag .equals("")) {
+        if (tag == null || tag.equals("")) {
             model.addAttribute("error", "标签不能为空");
             return "publish";
         }
+        String invalid = TagCache.filterInvalid(tag);
+        if (StringUtils.isNotBlank(invalid)) {
+            model.addAttribute("error", "输入非法标签"+invalid);
+            return "publish";
+        }
+
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
             model.addAttribute("error", "用户未登陆");
