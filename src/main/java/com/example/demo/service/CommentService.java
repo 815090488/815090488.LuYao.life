@@ -73,7 +73,7 @@ public class CommentService {
             if (question == null) {
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
-            comment.setCommentCount(0);
+            comment.setCommentCount(0);//修复多人评论的时候不显示评论数
             commentMapper.insert(comment);
             question.setCommentCount(1);
             questionExtMapper.incCommentCount(question);
@@ -85,6 +85,7 @@ public class CommentService {
 
 
     private void createNotify(Comment comment, Long receiver, String notifierName, String outerTitle, NotificationTypeEnum notificationType, Long outerId) {
+       //自己回复评论的时候不显示通知
         if (receiver == comment.getCommentator()) {
             return;
         }
