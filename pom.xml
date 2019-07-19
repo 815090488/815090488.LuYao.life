@@ -8,14 +8,14 @@
         <version>2.1.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
-    <artifactId>demo</artifactId>
+    <groupId>com.luyao.community</groupId>
+    <artifactId>community</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>demo</name>
-    <description>Demo project for Spring Boot</description>
+    <name>community</name>
+    <description>community</description>
 
     <properties>
-        <java.version>10</java.version>
+        <java.version>1.8</java.version>
     </properties>
 
     <dependencies>

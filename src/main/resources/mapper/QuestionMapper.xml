@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.mapper.QuestionMapper">
-  <resultMap id="BaseResultMap" type="com.example.demo.model.Question">
+<mapper namespace="com.luyao.community.mapper.QuestionMapper">
+  <resultMap id="BaseResultMap" type="com.luyao.community.model.Question">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="gmt_create" jdbcType="BIGINT" property="gmtCreate" />
@@ -12,7 +12,7 @@
     <result column="like_count" jdbcType="INTEGER" property="likeCount" />
     <result column="tag" jdbcType="VARCHAR" property="tag" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.example.demo.model.Question">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.luyao.community.model.Question">
     <result column="description" jdbcType="LONGVARCHAR" property="description" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -80,7 +80,7 @@
   <sql id="Blob_Column_List">
     description
   </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.example.demo.model.QuestionExample" resultMap="ResultMapWithBLOBs">
+  <select id="selectByExampleWithBLOBs" parameterType="com.luyao.community.model.QuestionExample" resultMap="ResultMapWithBLOBs">
     select
     <if test="distinct">
       distinct
@@ -96,7 +96,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" parameterType="com.example.demo.model.QuestionExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.luyao.community.model.QuestionExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -122,13 +122,13 @@
     delete from question
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.example.demo.model.QuestionExample">
+  <delete id="deleteByExample" parameterType="com.luyao.community.model.QuestionExample">
     delete from question
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.example.demo.model.Question">
+  <insert id="insert" parameterType="com.luyao.community.model.Question">
     insert into question (id, title, gmt_create, 
       gmt_modified, creator, comment_count, 
       view_count, like_count, tag, 
@@ -138,7 +138,7 @@
       #{viewCount,jdbcType=INTEGER}, #{likeCount,jdbcType=INTEGER}, #{tag,jdbcType=VARCHAR}, 
       #{description,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.example.demo.model.Question">
+  <insert id="insertSelective" parameterType="com.luyao.community.model.Question">
     insert into question
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -205,7 +205,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.example.demo.model.QuestionExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.luyao.community.model.QuestionExample" resultType="java.lang.Long">
     select count(*) from question
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -280,7 +280,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.Question">
+  <update id="updateByPrimaryKeySelective" parameterType="com.luyao.community.model.Question">
     update question
     <set>
       <if test="title != null">
@@ -313,7 +313,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.demo.model.Question">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.luyao.community.model.Question">
     update question
     set title = #{title,jdbcType=VARCHAR},
       gmt_create = #{gmtCreate,jdbcType=BIGINT},
@@ -326,7 +326,7 @@
       description = #{description,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.Question">
+  <update id="updateByPrimaryKey" parameterType="com.luyao.community.model.Question">
     update question
     set title = #{title,jdbcType=VARCHAR},
       gmt_create = #{gmtCreate,jdbcType=BIGINT},
@@ -338,7 +338,7 @@
       tag = #{tag,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="selectByExampleWithBLOBsWithRowbounds" parameterType="com.example.demo.model.QuestionExample" resultMap="ResultMapWithBLOBs">
+  <select id="selectByExampleWithBLOBsWithRowbounds" parameterType="com.luyao.community.model.QuestionExample" resultMap="ResultMapWithBLOBs">
     select
     <if test="distinct">
       distinct
@@ -354,7 +354,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExampleWithRowbounds" parameterType="com.example.demo.model.QuestionExample" resultMap="BaseResultMap">
+  <select id="selectByExampleWithRowbounds" parameterType="com.luyao.community.model.QuestionExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
