@@ -42,3 +42,5 @@
 - cp src/main/resources/application.properties  src/main/resources/application-production.properties
 - vim src/main/resources/application-production.properties
 - mvn package
+- java -jar -Dispring.profiles.active=production target/community-0.0.1-SNAPSHOT.jar
+- show variables like '%lower_case_table_names%';
