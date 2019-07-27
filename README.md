@@ -25,26 +25,3 @@
 [Live Reload](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei/related)  
 [Postman](https://chrome.google.com/webstore/detail/coohjcphdfgbiolnekdpbcijmhambjff)
 
-## 部署
-- Git
-- JDK
-- Maven
-- MySQL
-## 步骤
-- yum update 更新插件
-- yum install git 下载git
-- mkdir App 创建文件夹名称为App
-- cd App/
-- git clone https://github.com/815090488/815090488.LuYao.life.git
-- yum install maven
-- mvn -v
-- mvn compile package 编译打包
-- cp src/main/resources/application.properties  src/main/resources/application-production.properties
-- vim src/main/resources/application-production.properties
-- mvn package
-- java -jar -Dispring.profiles.active=production target/community-0.0.1-SNAPSHOT.jar
-- show variables like '%lower_case_table_names%';
-- 查看： ps -ef|grep java
-- 杀死：kill -9 4834(进程id)
-- vim ~/.m2/settings.xml
-- mvn clean compile flyway:migrate -Pproduction
