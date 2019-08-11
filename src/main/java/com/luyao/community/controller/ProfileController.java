@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 我的问题和最新回复展示
+ */
 @Controller
 public class ProfileController {
     @Autowired

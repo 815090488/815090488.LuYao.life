@@ -1,7 +1,7 @@
 package com.luyao.community.exception;
 
 /**
- * Created by codedrinker on 2019/5/28.
+ * 自定义异常信息
  */
 public class CustomizeException extends RuntimeException {
     private String message;

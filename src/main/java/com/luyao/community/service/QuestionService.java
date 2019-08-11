@@ -32,6 +32,13 @@ public class QuestionService {
     @Resource
     private UserMapper userMapper;
 
+    /**
+     * 返回index页面
+     * @param search
+     * @param page
+     * @param size
+     * @return
+     */
     public PaginationDTO list(String search,Integer page, Integer size) {
 
 
@@ -70,10 +77,9 @@ public class QuestionService {
         questionQueryDTO.setSize(size);
         questionQueryDTO.setPage(offset);
         List<Question> questions = questionExtMapper.selectBySearch(questionQueryDTO);
+
+
         List<QuestionDTO> questionDTOList = new ArrayList<>();
-
-
-
         for (Question question : questions) {
             User user = userMapper.selectByPrimaryKey(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
@@ -85,6 +91,13 @@ public class QuestionService {
         return paginationDTO;
     }
 
+    /**
+     * 返回我的问题列表
+     * @param userId
+     * @param page
+     * @param size
+     * @return
+     */
     public PaginationDTO list(long userId, Integer page, Integer size) {
         PaginationDTO paginationDTO = new PaginationDTO();
 
@@ -92,8 +105,8 @@ public class QuestionService {
 
         QuestionExample questionExample = new QuestionExample();
         questionExample.createCriteria().andCreatorEqualTo(userId);
-        Integer totalCount = (int) questionMapper.countByExample(questionExample);
 
+        Integer totalCount = (int) questionMapper.countByExample(questionExample);
         if (totalCount % size == 0) {
             totalPage = totalCount / size;
         } else {
@@ -108,16 +121,18 @@ public class QuestionService {
             page = totalPage;
         }
         paginationDTO.setPagination(totalPage, page);
-
         Integer offset = size * (page - 1);
+
         QuestionExample questionExample1 = new QuestionExample();
         questionExample1.createCriteria().andCreatorEqualTo(userId);
+        //查询显示分页数据
         List<Question> questions = questionMapper.selectByExampleWithBLOBsWithRowbounds(questionExample1, new RowBounds(offset, size));
 
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         for (Question question : questions) {
             User user = userMapper.selectByPrimaryKey(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
+            //快速将question对象拷贝到questionDTO对象上去
             BeanUtils.copyProperties(question, questionDTO);
             questionDTO.setUser(user);
             questionDTOList.add(questionDTO);
@@ -126,6 +141,11 @@ public class QuestionService {
         return paginationDTO;
     }
 
+    /**
+     * 根据id查出相关问题
+     * @param id
+     * @return
+     */
     public QuestionDTO getById(Long id) {
         Question question = questionMapper.selectByPrimaryKey(id);
         if (question == null) {
@@ -139,6 +159,10 @@ public class QuestionService {
 
     }
 
+    /**
+     * 根据id查找数据库，选择创建问题还是编辑修改问题
+     * @param question
+     */
     public void creatorUpdate(Question question) {
         if (question.getId() == null) {
             //创建
@@ -165,6 +189,10 @@ public class QuestionService {
         }
     }
 
+    /**
+     * 增加阅读数
+     * @param id
+     */
     public void incView(Long id) {
         Question question = new Question();
         question.setId(id);
@@ -172,6 +200,8 @@ public class QuestionService {
         questionExtMapper.incView(question);
     }
 
+
+//    查询相关问题展示
     public List<QuestionDTO> selectRelated(QuestionDTO queryDTO) {
         if (StringUtils.isBlank(queryDTO.getTag())) {
             return new ArrayList<>();

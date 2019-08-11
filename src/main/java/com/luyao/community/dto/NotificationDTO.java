@@ -2,6 +2,9 @@ package com.luyao.community.dto;
 
 import lombok.Data;
 
+/**
+ * 通知对象
+ */
 @Data
 public class NotificationDTO {
     private Long id;

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * Created by codedrinker on 2019/5/16.
+ * 拦截器  session拦截器
  */
 @Service
 public class SessionInterceptor implements HandlerInterceptor {
@@ -35,10 +35,12 @@ public class SessionInterceptor implements HandlerInterceptor {
                 if (cookie.getName().equals("token")) {
                     String token = cookie.getValue();
                     UserExample userExample = new UserExample();
+                    //createCriteria()方法可以拼接各种sql
                     userExample.createCriteria().andTokenEqualTo(token);
                     List<User> users = userMapper.selectByExample(userExample);
                     if (users.size() != 0) {
                         request.getSession().setAttribute("user", users.get(0));
+                        //未读通知数
                         Long unreadCount = notificationService.unreadCount(users.get(0).getId());
                         request.getSession().setAttribute("unreadCount", unreadCount);
                     }

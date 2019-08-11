@@ -4,6 +4,10 @@ import com.luyao.community.exception.CustomizeErrorCode;
 import com.luyao.community.exception.CustomizeException;
 import lombok.Data;
 
+/**
+ * 回复功能对象
+ * @param <T>
+ */
 @Data
 public class ResultDTO<T> {
     private Integer code;

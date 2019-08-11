@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+/**
+ * 回复功能
+ */
 @Controller
 public class CommentController {
 
@@ -30,6 +33,7 @@ public class CommentController {
         if (user == null) {
             return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);
         }
+//        StringUtils.isBlank()  判断是否为空   commons-lang3包下工具类
         if (commentCreateDTO == null || StringUtils.isBlank(commentCreateDTO.getContent())) {
             return ResultDTO.errorOf(CustomizeErrorCode.CONTENT_IS_EMPTY);
         }
@@ -45,6 +49,11 @@ public class CommentController {
         return ResultDTO.okOf();
     }
 
+    /**
+     * 二级评论
+     * @param id
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/comment/{id}", method = RequestMethod.GET)
     public ResultDTO<List<CommentDTO>> comments(@PathVariable(name = "id") Long id) {

@@ -6,8 +6,11 @@ import com.luyao.community.model.Question;
 
 import java.util.List;
 
-
+/**
+ * 扩展的mapper
+ */
 public interface QuestionExtMapper {
+    //增加阅读数
     int incView(Question record);
 
     int incCommentCount(Question record);

@@ -1,7 +1,7 @@
 package com.luyao.community.enums;
 
 /**
- * Created by codedrinker on 2019/6/14.
+ *通知
  */
 public enum NotificationStatusEnum {
     UNREAD(0), READ(1);

@@ -4,7 +4,7 @@ import com.luyao.community.model.User;
 import lombok.Data;
 
 /**
- * Created by codedrinker on 2019/6/2.
+ * 回复功能
  */
 @Data
 public class CommentDTO {

@@ -2,6 +2,9 @@ package com.luyao.community.dto;
 
 import lombok.Data;
 
+/**
+ * 授权参数封装成一个对象
+ */
 @Data
 public class AccessTokenDTO {
     private String client_id;

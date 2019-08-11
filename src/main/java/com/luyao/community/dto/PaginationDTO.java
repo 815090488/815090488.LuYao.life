@@ -5,13 +5,17 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 封装分页对象
+ * @param <T>
+ */
 @Data
 public class PaginationDTO<T> {
-    private List<T> data;
-    private boolean showPrevious;
-    private boolean showFirstPage;
-    private boolean showNext;
-    private boolean showEndPage;
+    private List<T> data;//返回list对象
+    private boolean showPrevious;//显示上一页
+    private boolean showFirstPage;//显示第一页
+    private boolean showNext;//下一页
+    private boolean showEndPage;//显示最后一页
     private Integer page;
     private List<Integer> pages = new ArrayList<>();
     private Integer totalPage;

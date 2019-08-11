@@ -9,7 +9,6 @@ import com.luyao.community.exception.CustomizeException;
 import com.luyao.community.mapper.*;
 import com.luyao.community.model.*;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +19,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * 回复评论
+ */
 @Service
 public class CommentService {
 
@@ -85,6 +87,15 @@ public class CommentService {
     }
 
 
+    /**
+     * 创建通知
+     * @param comment
+     * @param receiver
+     * @param notifierName
+     * @param outerTitle
+     * @param notificationType
+     * @param outerId
+     */
     private void createNotify(Comment comment, Long receiver, String notifierName, String outerTitle, NotificationTypeEnum notificationType, Long outerId) {
         //自己回复评论的时候不显示通知
         if (receiver == comment.getCommentator()) {
@@ -102,6 +113,12 @@ public class CommentService {
         notificationMapper.insert(notification);
     }
 
+    /**
+     * 回复列表
+     * @param id
+     * @param type
+     * @return
+     */
     public List<CommentDTO> listByTargetId(Long id, CommentTypeEnum type) {
         CommentExample commentExample = new CommentExample();
         commentExample.createCriteria()
@@ -113,6 +130,7 @@ public class CommentService {
         if (comments.size() == 0) {
             return new ArrayList<>();
         }
+        //comments.stream()将一个对象转换成另一个对象
         // 获取去重的评论人
         Set<Long> commentators = comments.stream().map(comment -> comment.getCommentator()).collect(Collectors.toSet());
         List<Long> userIds = new ArrayList();

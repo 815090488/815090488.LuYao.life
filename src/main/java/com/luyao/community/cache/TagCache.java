@@ -8,7 +8,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * 标签库
+ */
 public class TagCache {
+    /**
+     * 获取标签库
+     * @return
+     */
     public static List<TagDTO> get() {
         List<TagDTO> tagDTOS = new ArrayList<>();
         TagDTO program = new TagDTO();
@@ -39,10 +46,12 @@ public class TagCache {
         return tagDTOS;
     }
 
+    //解析标签输入
     public static String filterInvalid(String tags) {
         String[] split = StringUtils.split(tags, ",");
         List<TagDTO> tagDTOS = get();
 
+        //将两层数组循环出来
         List<String> tagList = tagDTOS.stream().flatMap(tag -> tag.getTags().stream()).collect(Collectors.toList());
         String invalid = Arrays.stream(split).filter(t -> !tagList.contains(t)).collect(Collectors.joining(","));
         return invalid;

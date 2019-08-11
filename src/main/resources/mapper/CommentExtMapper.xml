@@ -12,7 +12,7 @@
         <result column="content" jdbcType="VARCHAR" property="content"/>
         <result column="comment_count" jdbcType="INTEGER" property="commentCount"/>
     </resultMap>
-
+<!--增加二级评论数-->
     <update id="incCommentCount" parameterType="com.luyao.community.model.Comment">
         update COMMENT
         set COMMENT_COUNT = COMMENT_COUNT + #{commentCount,jdbcType=INTEGER}

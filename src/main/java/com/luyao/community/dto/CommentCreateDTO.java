@@ -3,7 +3,7 @@ package com.luyao.community.dto;
 import lombok.Data;
 
 /**
- * Created by codedrinker on 2019/5/30.
+ *
  */
 @Data
 public class CommentCreateDTO {

@@ -28,7 +28,7 @@
         </javaTypeResolver>
 
         <!--生成Javabean的位置-->
-        <javaModelGenerator targetPackage="com.example.demo.model" targetProject=".\src\main\java">
+        <javaModelGenerator targetPackage="com.luyao.community.model" targetProject=".\src\main\java">
             <property name="enableSubPackages" value="true" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
@@ -39,7 +39,7 @@
         </sqlMapGenerator>
 
         <!-- 指定dao接口生成的位置，mapper接口 -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.example.demo.mapper"  targetProject=".\src\main\java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.luyao.community.mapper"  targetProject=".\src\main\java">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 

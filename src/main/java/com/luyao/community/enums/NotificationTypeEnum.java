@@ -1,7 +1,7 @@
 package com.luyao.community.enums;
 
 /**
- * Created by codedrinker on 2019/6/14.
+ *通知分类
  */
 public enum NotificationTypeEnum {
     REPLY_QUESTION(1, "回复了问题"),

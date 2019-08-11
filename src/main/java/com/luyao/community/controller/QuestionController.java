@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
+/**
+ * 返回问题界面
+ */
 @Controller
 public class QuestionController {
 
@@ -24,8 +27,11 @@ public class QuestionController {
     @GetMapping("/question/{id}")
     public String question(@PathVariable(name = "id") Long id,
                            Model model) {
+        //根据id查找问题
         QuestionDTO questionDTO = questionService.getById(id);
+        //查询相关问题展示
         List<QuestionDTO> relatedQuestions = questionService.selectRelated(questionDTO);
+        //回复列表
         List<CommentDTO> comments = commentService.listByTargetId(id, CommentTypeEnum.QUESTION);
         //累加阅读数
         questionService.incView(id);

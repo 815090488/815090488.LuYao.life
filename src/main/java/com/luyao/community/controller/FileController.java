@@ -13,6 +13,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 图片上传
+ */
 @Controller
 @Slf4j
 public class FileController {

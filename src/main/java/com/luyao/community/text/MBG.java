@@ -22,7 +22,7 @@ public class MBG {
         File configFile = new File("generatorConfig.xml");
         ConfigurationParser cp = new ConfigurationParser(warnings);
         Configuration config = cp.parseConfiguration(configFile);
-        DefaultShellCallback callback = new DefaultShellCallback(overwrite);
+        DefaultShellCallback callback = new DefaultShellCallback(true);
         MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
         myBatisGenerator.generate(null);
     }

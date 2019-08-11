@@ -1,7 +1,7 @@
 package com.luyao.community.exception;
 
 /**
- * Created by codedrinker on 2019/5/28.
+ * 定义错误码枚举类型
  */
 public enum CustomizeErrorCode implements ICustomizeErrorCode {
 

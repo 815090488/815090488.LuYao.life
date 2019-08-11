@@ -1,7 +1,7 @@
 package com.luyao.community.exception;
 
 /**
- * Created by codedrinker on 2019/5/28.
+ * 自定义错误码
  */
 public interface ICustomizeErrorCode {
     String getMessage() ;

@@ -25,13 +25,13 @@ function comment2target(targetId, type, content) {
         }),
         success: function (response) {
             if (response.code == 200) {
-                window.location.reload();
+                window.location.reload();//刷新页面
             } else {
                 if (response.code == 2003) {
                     var isAccepted = confirm(response.message);
                     if (isAccepted) {
                         window.open("https://github.com/login/oauth/authorize?client_id=a5d136a89cb13643f748&redirect_uri=" + document.location.origin + "/callback&scope=user&state=1");
-                        window.localStorage.setItem("closable", true);
+                        window.localStorage.setItem("closable", true);//用于长久保存整个网站数据，保存数据没有过期时间，直到手动删除
                     }
                 } else {
                     alert(response.message);
@@ -117,7 +117,7 @@ function collapseComments(e) {
 function showSelectTag() {
     $("#select-tag").show();
 }
-
+//标签库
 function selectTag(e) {
     var value = e.getAttribute("data-tag");
     var previous = $("#tag").val();

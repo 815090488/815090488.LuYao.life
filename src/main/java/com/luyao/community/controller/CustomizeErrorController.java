@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by codedrinker on 2019/5/28.
+ * 异常信息处理
  */
 @Controller
 @RequestMapping("${server.error.path:${error.path:/error}}")

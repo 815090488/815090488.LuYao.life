@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * 通知功能
+ */
 @Service
 public class NotificationService {
 
@@ -76,6 +79,11 @@ public class NotificationService {
         return paginationDTO;
     }
 
+    /**
+     * 未读数
+     * @param userId
+     * @return
+     */
     public Long unreadCount(Long userId) {
         NotificationExample notificationExample = new NotificationExample();
         notificationExample.createCriteria()
@@ -84,6 +92,12 @@ public class NotificationService {
         return notificationMapper.countByExample(notificationExample);
     }
 
+    /**
+     * 已读数
+     * @param id
+     * @param user
+     * @return
+     */
     public NotificationDTO read(Long id, User user) {
         Notification notification = notificationMapper.selectByPrimaryKey(id);
         if (notification == null) {

@@ -19,6 +19,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
+/**
+ * 获取Github返回的user授权信息
+ *
+ * 使用OKHttp
+ */
 @Controller
 @Slf4j
 public class AuthorizeController {
@@ -58,6 +63,7 @@ public class AuthorizeController {
             user.setAvatarUrl(githubUser.getAvatar_url());
             user.setAccountId(String.valueOf(githubUser.getId()));
             userService.createUpdate(user);
+//            将token写入到cookie
             response.addCookie(new Cookie("token",token));
             return "redirect:/";
         }else{

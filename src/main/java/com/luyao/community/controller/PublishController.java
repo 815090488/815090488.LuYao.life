@@ -16,12 +16,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 发布问题请求
+ */
 @Controller
 public class PublishController {
 
     @Autowired
     QuestionService questionService;
 
+    /**
+     * 问题编辑
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/publish/{id}")
     public String edit(@PathVariable(name = "id") Long id, Model model) {
         QuestionDTO question = questionService.getById(id);
@@ -40,6 +49,16 @@ public class PublishController {
         return "publish";
     }
 
+    /**
+     * 发布问题和编辑修改问题
+     * @param title
+     * @param description
+     * @param tag
+     * @param id
+     * @param request
+     * @param model
+     * @return
+     */
     @PostMapping("/publish")
     public String dopublish(
             @RequestParam(value = "title", required = false) String title,
