@@ -26,10 +26,16 @@
     </update>
 
     <select id="selectRelated" parameterType="com.luyao.community.model.Question" resultMap="BaseResultMap">
-        select *
-        from question
-        WHERE id != #{id}
-          and tag REGEXP #{tag}
+        select * from QUESTION
+        <where>
+            <if test="id != null">
+                and id != #{id}
+            </if>
+            <if test="tag != null and tag != ''">
+                and tag regexp #{tag}
+            </if>
+        </where>
+        order by gmt_create desc limit 20
     </select>
 
     <select id="countBySearch" parameterType="com.luyao.community.dto.QuestionQueryDTO"
@@ -38,6 +44,15 @@
         <where>
             <if test="search != null and search != ''">
                 and title regexp #{search}
+            </if>
+            <if test="tag != null and tag != ''">
+                and tag regexp #{tag}
+            </if>
+            <if test="sort != null and sort != '' and sort == 'no'">
+                and comment_count = 0
+            </if>
+            <if test="time != null and time != ''">
+                and gmt_create > #{time}
             </if>
         </where>
     </select>
@@ -50,7 +65,28 @@
             <if test="search != null and search != ''">
                 and title regexp #{search}
             </if>
+            <if test="tag != null and tag != ''">
+                and tag regexp #{tag}
+            </if>
+            <if test="sort != null and sort != '' and sort == 'no'">
+                and comment_count = 0
+            </if>
+            <if test="time != null and time != ''">
+                and gmt_create > #{time}
+            </if>
         </where>
-        order by gmt_create desc limit #{page},#{size}
+        <if test="sort == null or sort == ''">
+            order by gmt_create desc
+        </if>
+        <if test="sort != null and sort != '' and sort == 'new'">
+            order by gmt_create desc
+        </if>
+        <if test="sort != null and sort != '' and sort == 'no'">
+            order by gmt_create desc
+        </if>
+        <if test="sort != null and sort != '' and (sort == 'hot' || sort == 'hot7' || sort == 'hot30')">
+            order by comment_count desc
+        </if>
+        limit #{page},#{size}
     </select>
 </mapper>

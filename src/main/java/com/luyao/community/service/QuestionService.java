@@ -3,6 +3,7 @@ package com.luyao.community.service;
 import com.luyao.community.dto.PaginationDTO;
 import com.luyao.community.dto.QuestionDTO;
 import com.luyao.community.dto.QuestionQueryDTO;
+import com.luyao.community.enums.SortEnum;
 import com.luyao.community.exception.CustomizeErrorCode;
 import com.luyao.community.exception.CustomizeException;
 import com.luyao.community.mapper.QuestionExtMapper;
@@ -34,18 +35,26 @@ public class QuestionService {
 
     /**
      * 返回index页面
+     *
+     * @param s
+     * @param tag
      * @param search
      * @param page
      * @param size
      * @return
      */
-    public PaginationDTO list(String search,Integer page, Integer size) {
+    public PaginationDTO list(String search, String tag, String sort, Integer page, Integer size) {
 
 
         //搜索功能添加
         if (StringUtils.isNotBlank(search)) {
             String[] tags = StringUtils.split(search, " ");
-            search = Arrays.stream(tags).collect(Collectors.joining("|"));
+            search = Arrays
+                    .stream(tags)
+                    .filter(StringUtils::isNotBlank)
+                    .map(t -> t.replace("+", "").replace("*", "").replace("?", ""))
+                    .filter(StringUtils::isNotBlank)
+                    .collect(Collectors.joining("|"));
         }
 
 
@@ -55,6 +64,25 @@ public class QuestionService {
 
         QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
         questionQueryDTO.setSearch(search);
+
+        if (StringUtils.isNotBlank(tag)) {
+            tag = tag.replace("+", "").replace("*", "").replace("?", "");
+            questionQueryDTO.setTag(tag);
+        }
+
+        for (SortEnum sortEnum : SortEnum.values()) {
+            if (sortEnum.name().toLowerCase().equals(sort)) {
+                questionQueryDTO.setSort(sort);
+
+                if (sortEnum == SortEnum.HOT7) {
+                    questionQueryDTO.setTime(System.currentTimeMillis() - 1000L * 60 * 60 * 24 * 7);
+                }
+                if (sortEnum == SortEnum.HOT30) {
+                    questionQueryDTO.setTime(System.currentTimeMillis() - 1000L * 60 * 60 * 24 * 30);
+                }
+                break;
+            }
+        }
 
         Integer totalCount = questionExtMapper.countBySearch(questionQueryDTO);
 

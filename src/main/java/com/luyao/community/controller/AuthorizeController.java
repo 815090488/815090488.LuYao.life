@@ -64,7 +64,9 @@ public class AuthorizeController {
             user.setAccountId(String.valueOf(githubUser.getId()));
             userService.createUpdate(user);
 //            将token写入到cookie
-            response.addCookie(new Cookie("token",token));
+            Cookie cookie = new Cookie("token", token);
+            cookie.setMaxAge(60 * 60 * 24 * 30 * 6);
+            response.addCookie(cookie);
             return "redirect:/";
         }else{
             //登录失败

@@ -46,7 +46,8 @@
 <!--        <table  tableName="username" domainObjectName="User" />-->
 <!--        <table  tableName="question" domainObjectName="Question" />-->
 <!--        <table  tableName="comment" domainObjectName="Comment" />-->
-        <table  tableName="notification" domainObjectName="Notification" />
-
+<!--        <table  tableName="notification" domainObjectName="Notification" />-->
+        <table  tableName="nav" domainObjectName="Nav" />
+        <table  tableName="ad" domainObjectName="Ad" />
     </context>
 </generatorConfiguration>
